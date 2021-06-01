@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "MCGFTGF",
+    "version": "1.0",
+    "description": "Convenient way to fill out OE/HULM Google Forms in IIT(BHU)",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://docs.google.com/forms/*"],
+            "js": ["jquery.min.js", "jquery-ui.min.js", "content.js"]
+        }
+    ]
+  }
