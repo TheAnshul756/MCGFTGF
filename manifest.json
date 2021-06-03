@@ -3,6 +3,13 @@
     "name": "MCGFTGF",
     "version": "1.0",
     "description": "Convenient way to fill out OE/HULM Google Forms in IIT(BHU)",
+    "icons": {
+      "16":"icon_16.ico",
+      "32":"icon_32.ico",
+      "48":"icon_48.ico",
+      "64":"icon_64.ico",
+      "128": "icon_128.ico"
+    },
     "action": {
       "default_popup": "popup.html"
     },
@@ -12,5 +19,8 @@
             "js": ["jquery.min.js", "jquery-ui.min.js", "content.js"],
             "css": ["jquery-ui.min.css"]
         }
+    ],
+    "permissions":[
+      "tabs"
     ]
   }
