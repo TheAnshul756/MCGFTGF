@@ -1,15 +1,16 @@
 const innerHTML = `
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-    <ul id="sortable">
-    </ul>
+    <br><br>
+    <div id="scrollable">
+    <ol id="sortable">
+    </ol>
+    </div>
     <button id="submit" type="submit">Submit</button>
   </div>
 
-`
+`;
 
-console.log("Hello");
 const modalCSS = `
 .modal {
     display: none; /* Hidden by default */
@@ -32,6 +33,10 @@ const modalCSS = `
     border: 1px solid #888;
     width: 80%;
   }
+#scrollable{
+    height:400px;
+    overflow-y:auto;
+}
   
   /* The Close Button */
   .close {
@@ -47,8 +52,25 @@ const modalCSS = `
     text-decoration: none;
     cursor: pointer;
   }
-`
-const style = document.createElement('style');
+  #sortable {  margin:0; width: 60%; }
+  #sortable li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 1.5em; }
+  html>body #sortable li { height: 1.5em; line-height: 1.2em; }
+  .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+  #submit {
+        text-align: center;
+        border-radius: 40px;
+        width: 100px;
+        height: 40px;
+        margin-left: 47%;
+        margin-top: 20px;
+    }
+
+    #submit:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+  `;
+
+  const style = document.createElement('style');
 style.innerHTML = modalCSS;
 var ref = document.querySelector('script');
 ref.parentNode.insertBefore(style, ref);
@@ -75,23 +97,16 @@ closeSpan.onclick = modalOff
 let arr1 = [];
 let subjects = document.getElementsByClassName("freebirdFormviewerComponentsQuestionGridRowHeader");
 
-$( "#sortable" ).sortable(
-    {
-        stop: function( event, ui ) 
-        {
-            var idsInOrder = $("#sortable").sortable('toArray', { attribute: 'data-id' });
-            console.log(idsInOrder);
-        }
+$( "#sortable" ).sortable({
+        placeholder: "ui-state-highlight"
     });
-
-    // div.appsMaterialWizToggleRadiogroupEl.exportToggleEl.isActive.isCheckedNext
+    $( "#sortable" ).disableSelection();
 
 const btn = modal.querySelector("button");
 
 
 btn.onclick = function() {
     var idsInOrder = $("#sortable").sortable('toArray', { attribute: 'data-id' });
-    // const baap = subjects[i+1].parentElement
     let arr2 = [...arr1];
     for(let i = 0; i < arr1.length; i++) {
         arr2[parseInt(idsInOrder[i])] = i;
@@ -101,9 +116,7 @@ btn.onclick = function() {
         for(let j = 0; j < arr2[i] + 1; j++){
             currNode= currNode.nextSibling;
         }
-        console.log(currNode);
         currNode = currNode.firstElementChild.firstElementChild;
-        console.log(currNode);
         currNode.click();
 
     }
@@ -120,13 +133,13 @@ chrome.runtime.onMessage.addListener(
             for(let i = 1; i < num;i++) {
                 arr1.push(subjects[i].textContent);
             }
-            console.log(arr1);
-            const ul = modal.querySelector('ul');
+            const ul = modal.querySelector('ol');
             ul.innerHTML="";
             for(let i = 0; i < arr1.length; i++){
                 const li = document.createElement("li");
                 li.textContent = arr1[i];
                 li.setAttribute("data-id",i.toString());
+                li.className="ui-state-default";
                 ul.appendChild(li);
             }            
             modalOn();

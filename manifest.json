@@ -9,7 +9,8 @@
     "content_scripts": [
         {
             "matches": ["https://docs.google.com/forms/*"],
-            "js": ["jquery.min.js", "jquery-ui.min.js", "content.js"]
+            "js": ["jquery.min.js", "jquery-ui.min.js", "content.js"],
+            "css": ["jquery-ui.min.css"]
         }
     ]
   }
