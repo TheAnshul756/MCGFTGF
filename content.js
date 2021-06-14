@@ -125,9 +125,10 @@ btn.onclick = function() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        console.log("Hello From content without if");
-        if(request.greeting == "get-modal") {
-            console.log("Hello From content via popup");
+        // console.log("Hello From content without if");
+        if(request.greeting == "get-modal" && subjects.length > 2) {
+            // console.log("Hello From content via popup");
+            console.log(subjects.length);
             arr1 = [];
             var num = (subjects.length / 2);
             for(let i = 1; i < num;i++) {
@@ -143,6 +144,9 @@ chrome.runtime.onMessage.addListener(
                 ul.appendChild(li);
             }            
             modalOn();
+        }
+        if(subjects.length <= 2) {
+          alert('NOT VALID FORM!!!') 
         }
     });
 
