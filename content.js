@@ -89,13 +89,17 @@ const modalOff = function(){
     modal.style.display="none";
 }
 
+const matrix2array = function (row, col, choices) {
+  return choices * row + col;
+}
+
 const closeSpan = document.querySelector('.close');
 closeSpan.onclick = modalOff
 
 // console.log(modal);
 
 let arr1 = [];
-let subjects = document.getElementsByClassName("freebirdFormviewerComponentsQuestionGridRowHeader");
+let subjects = [...document.querySelectorAll(".V4d7Ke.OIC90c:not(.wzWPxe)")];
 
 $( "#sortable" ).sortable({
         placeholder: "ui-state-highlight"
@@ -105,20 +109,19 @@ $( "#sortable" ).sortable({
 const btn = modal.querySelector("button");
 
 
-btn.onclick = function() {
+btn.onclick = function () {
     var idsInOrder = $("#sortable").sortable('toArray', { attribute: 'data-id' });
     let arr2 = [...arr1];
     for(let i = 0; i < arr1.length; i++) {
         arr2[parseInt(idsInOrder[i])] = i;
     }
-    for(let i = 0; i < arr1.length; i++){
-        let currNode = subjects[i+1]; 
-        for(let j = 0; j < arr2[i] + 1; j++){
-            currNode= currNode.nextSibling;
-        }
-        currNode = currNode.firstElementChild.firstElementChild;
-        currNode.click();
+    
+  let choices = arr2.length;
+  let radios = document.querySelectorAll(".vd3tt");
 
+    for (let i = 0; i < arr2.length; i++) {
+      let row = i, col = arr2[i];
+      radios[matrix2array(col, row, choices)].click();
     }
     modalOff();
 }
@@ -131,7 +134,7 @@ chrome.runtime.onMessage.addListener(
             console.log(subjects.length);
             arr1 = [];
             var num = (subjects.length / 2);
-            for(let i = 1; i < num;i++) {
+            for (let i = 0; i < num; i++) {
                 arr1.push(subjects[i].textContent);
             }
             const ul = modal.querySelector('ol');
