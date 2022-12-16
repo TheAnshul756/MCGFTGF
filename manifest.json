@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Effortless Subject Reordering",
-    "version": "1.0",
+    "version": "2.0",
     "description": "Convenient way to fill out OE/HULM Google Forms in IIT(BHU)",
     "icons": {
       "16":"icon_16.ico",
